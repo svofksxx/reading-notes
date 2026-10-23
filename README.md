@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="zh-CN" data-page-node-id="MMz2zknEAajIgseYa9RvEX">
 <head data-page-node-id="qT5km8Ly7j2IFf7XvF5FoI">
 <meta charset="UTF-8" data-page-node-id="yhHl1ULIfF1o72vfOtPKEi">
