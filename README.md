@@ -1,9 +1,10 @@
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="MMz2zknEAajIgseYa9RvEX">
+<head data-page-node-id="qT5km8Ly7j2IFf7XvF5FoI">
+<meta charset="UTF-8" data-page-node-id="yhHl1ULIfF1o72vfOtPKEi">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="e44aOAmQiQanzJ9L5HQFuv">
 <title>读书笔记 · Reading Notes</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23e8572a' d='M12 0c1.3 7 4.4 10.1 12 12-7.6 1.9-10.7 5-12 12-1.3-7-4.4-10.1-12-12C7.6 10.1 10.7 7 12 0z'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23e8572a' d='M12 0c1.3 7 4.4 10.1 12 12-7.6 1.9-10.7 5-12 12-1.3-7-4.4-10.1-12-12C7.6 10.1 10.7 7 12 0z'/%3E%3C/svg%3E" data-page-node-id="9Yv0oxM27Dj6viUCtMKKpd">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
@@ -93,6 +94,43 @@ tailwind.config = {
   .dark .field { background: #383838; color: #e8e3d3; border-color: rgba(85,85,85,0.8); }
   .dark .field::placeholder { color: rgba(232,227,211,0.35); }
 
+  /* ---------- 富文本工具栏按钮 ---------- */
+  .fmt-bar {
+    background: #f5f0e1;
+    border-radius: 0.5rem;
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 4px;
+  }
+  .dark .fmt-bar { background: #2d2d2d; }
+  .fmt-btn {
+    min-width: 40px; height: 34px; padding: 0 12px;
+    border-radius: 0.5rem; border: 2px solid #3d3d3d;
+    background: transparent; color: #3d3d3d;
+    font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    font-family: inherit; font-size: 0.8rem; line-height: 1;
+    box-shadow: 2px 2px 0 0 var(--sh);
+    transition: transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+    cursor: pointer; user-select: none;
+  }
+  .fmt-btn:hover { background: rgba(61,61,61,0.08); }
+  .fmt-btn:active { transform: translateY(2px); box-shadow: none !important; }
+  .fmt-btn:focus-visible { outline: 2px dashed #e8572a; outline-offset: 2px; }
+  .dark .fmt-btn { color: #e8e3d3; border-color: #555555; }
+  .dark .fmt-btn:hover { background: rgba(232,227,211,0.08); }
+  .fmt-btn.active { background: #e8572a; color: #f5f0e1; border-color: #3d3d3d; }
+  .fmt-btn.active:hover { background: #d14a20; color: #f5f0e1; }
+  .dark .fmt-btn.active { border-color: #555555; }
+
+  /* ---------- 可编辑正文容器 ---------- */
+  #edBody { outline: none; overflow-y: auto; white-space: pre-wrap; }  #edBody:empty::before {
+    content: attr(data-placeholder);
+    color: rgba(61,61,61,0.4);
+  }
+  .dark #edBody:empty::before { color: rgba(232,227,211,0.35); }
+  #edBody b, #edBody strong { font-weight: 700; }
+  #edBody i, #edBody em { font-style: italic; }
+  #edBody u { text-decoration: underline; }
+
   /* ---------- 标签 chip：星芒反光 ---------- */
   .chip {
     display: inline-flex; align-items: center; gap: 4px;
@@ -110,6 +148,23 @@ tailwind.config = {
   .dark .chip { color: #7fbfae; border-color: #2a6e5e; }
   .dark .chip:hover { background: rgba(42,110,94,0.25); }
   .chip-static { cursor: default; }
+
+  /* ---------- 注解栏输入容器 / 分类下拉选择器（沿用 field token） ---------- */
+  .field-annotation, .field-select {
+    border: 2px solid rgba(61,61,61,0.3);
+    background: #ffffff;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  .field-annotation { cursor: text; }
+  .field-annotation:focus, .field-select:focus { border-color: #e8572a; outline: none; }
+  .field-annotation::placeholder { color: rgba(61,61,61,0.4); }
+  .dark .field-annotation, .dark .field-select { background: #383838; color: #e8e3d3; border-color: rgba(232,227,211,0.25); }
+  .dark .field-annotation::placeholder { color: rgba(232,227,211,0.35); }
+  .dark .field-select option { background: #383838; color: #e8e3d3; }
+  .field-annotation::-webkit-scrollbar { width: 8px; }
+  .field-annotation::-webkit-scrollbar-thumb { background: rgba(61,61,61,0.25); border-radius: 8px; border: 2px solid transparent; background-clip: content-box; }
+  .dark .field-annotation::-webkit-scrollbar-thumb { background: rgba(232,227,211,0.22); background-clip: content-box; }
 
   /* ---------- 分类条目 ---------- */
   .cat-item {
@@ -179,80 +234,80 @@ tailwind.config = {
   }
 </style>
 </head>
-<body>
+<body data-page-node-id="sDpaeWZJTjuULh4YLZx7TV">
 
-<div id="app" class="flex h-full overflow-hidden">
+<div id="app" class="flex h-full overflow-hidden" data-page-node-id="r1Ahovuivmu0FDC5aHG83y">
 
   <!-- ═══════════ 左侧：分类栏 ═══════════ -->
-  <aside id="sidebar" class="w-[248px] shrink-0 h-full overflow-y-auto border-r-2 border-charcoal dark:border-nborder bg-cream dark:bg-night flex flex-col">
-    <div class="p-5 pb-3">
-      <div class="flex items-center justify-between">
-        <h1 class="text-base font-bold tracking-widest uppercase flex items-center gap-2 text-charcoal dark:text-ntext">
-          <svg class="w-5 h-5 text-burnt" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c1.3 7 4.4 10.1 12 12-7.6 1.9-10.7 5-12 12-1.3-7-4.4-10.1-12-12C7.6 10.1 10.7 7 12 0z"/></svg>
+  <aside id="sidebar" class="w-[248px] shrink-0 h-full overflow-y-auto border-r-2 border-charcoal dark:border-nborder bg-cream dark:bg-night flex flex-col" data-page-node-id="a8uK2PHt7Ded9Jaj6UFRLl">
+    <div class="p-5 pb-3" data-page-node-id="FaJA2pIXbthufdgdqlcmos">
+      <div class="flex items-center justify-between" data-page-node-id="trjrVCYxTg26HFkoDaF6zG">
+        <h1 class="text-base font-bold tracking-widest uppercase flex items-center gap-2 text-charcoal dark:text-ntext" data-page-node-id="zRDdPdbwHBrUHWuQMy3HPe">
+          <svg class="w-5 h-5 text-burnt" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-page-node-id="Ih0zGXoBdjJobuMcNrNgZh"><path d="M12 0c1.3 7 4.4 10.1 12 12-7.6 1.9-10.7 5-12 12-1.3-7-4.4-10.1-12-12C7.6 10.1 10.7 7 12 0z" data-page-node-id="vXDYW4rQ5YDUAmmim636mJ"/></svg>
           读书笔记
         </h1>
-        <div class="flex items-center gap-1">
-          <button class="btn btn-secondary btn-sm !shadow-none !border-transparent" data-action="toggle-dark" aria-label="切换夜间模式" title="夜间模式">
-            <span id="darkIcon">☀</span>
+        <div class="flex items-center gap-1" data-page-node-id="DWZZC37yakagUFLXH0ClKS">
+          <button class="btn btn-secondary btn-sm !shadow-none !border-transparent" data-action="toggle-dark" aria-label="切换夜间模式" title="夜间模式" data-page-node-id="EKAhWehOiCFVaS540VObhG">
+            <span id="darkIcon" data-page-node-id="Dc8mIh2EuFMJBE28fVkiF8">☀</span>
           </button>
-          <button class="btn btn-secondary btn-sm !shadow-none !border-transparent" data-action="open-settings" aria-label="设置" title="设置">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <button class="btn btn-secondary btn-sm !shadow-none !border-transparent" data-action="open-settings" aria-label="设置" title="设置" data-page-node-id="SQaaox0vx6mDaRBrefMaLP">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-page-node-id="Ub1yHZ204CTHg3h1yB1HRw"><circle cx="12" cy="12" r="3" data-page-node-id="9tYV2wd9QVkRpDHmYh3CfO"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" data-page-node-id="U5A5M1PMWLzxHplchWDyJZ"/></svg>
           </button>
         </div>
       </div>
-      <div class="geo-divider mt-3" aria-hidden="true">
-        <span class="blk w-8 bg-burnt"></span><span class="blk w-4 bg-teal2"></span><span class="blk w-2 bg-gold"></span>
-        <span class="flex-1 h-[2px] bg-charcoal/20 dark:bg-nborder"></span>
+      <div class="geo-divider mt-3" aria-hidden="true" data-page-node-id="6Ko6ylAtgxYVuWMPI821MF">
+        <span class="blk w-8 bg-burnt" data-page-node-id="wkxFlG3Q3gpDHuZqETVGk0"></span><span class="blk w-4 bg-teal2" data-page-node-id="mYqr4F6e1NSnDQZGb15sIV"></span><span class="blk w-2 bg-gold" data-page-node-id="HnPBl0zAqoKAYV4QOaEu2G"></span>
+        <span class="flex-1 h-[2px] bg-charcoal/20 dark:bg-nborder" data-page-node-id="Bom94cPrYHknyarFmA4wzh"></span>
       </div>
     </div>
 
-    <div class="px-5 pb-3">
-      <button class="btn btn-primary btn-md w-full" data-action="add-book">＋ 添加新书</button>
+    <div class="px-5 pb-3" data-page-node-id="jqDKoUiVEUQTrVV7S4Ywyy">
+      <button class="btn btn-primary btn-md w-full" data-action="add-book" data-page-node-id="z80IRduuQKeqQPESWW4Vxg">＋ 添加新书</button>
     </div>
 
-    <nav class="flex-1 px-3 pb-6" aria-label="分类列表">
-      <div class="cat-item text-sm font-semibold" data-action="select-root" tabindex="0" id="rootItem">
-        <svg class="w-4 h-4 text-gold shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v4h-7zM13 10h7v10h-7zM4 13h7v7H4z"/></svg>
-        <span class="cat-name">全部笔记</span>
-        <span class="ml-auto text-xs opacity-60" id="rootCount">0</span>
+    <nav class="flex-1 px-3 pb-6" aria-label="分类列表" data-page-node-id="g6Ajt0WSQcx3qOAjUfEjpL">
+      <div class="cat-item text-sm font-semibold" data-action="select-root" tabindex="0" id="rootItem" data-page-node-id="X0L8n4Gn3OE2gyOTfpauna">
+        <svg class="w-4 h-4 text-gold shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-page-node-id="GOgNiTSs5TJA8DP3Hog4S9"><path d="M4 4h7v7H4zM13 4h7v4h-7zM13 10h7v10h-7zM4 13h7v7H4z" data-page-node-id="YdnyFkKD1xeiWHOXmHAGnD"/></svg>
+        <span class="cat-name" data-page-node-id="yxobcnpTQ8tYuipHjMMH6f">全部笔记</span>
+        <span class="ml-auto text-xs opacity-60" id="rootCount" data-page-node-id="edrRphoZfwGsng27lV8tH0">0</span>
       </div>
-      <div id="bookTree"></div>
+      <div id="bookTree" data-page-node-id="rNkYn3PTvUZvGQcMrvaVUL"></div>
     </nav>
   </aside>
 
   <!-- ═══════════ 中间：内容区 ═══════════ -->
-  <main id="main" class="flex-1 min-w-0 h-full overflow-y-auto bg-cream dark:bg-night"></main>
+  <main id="main" class="flex-1 min-w-0 h-full overflow-y-auto bg-cream dark:bg-night" data-page-node-id="lTmMVcE7CGX2KKn9HwujiG"></main>
 
   <!-- ═══════════ 右侧：标签栏 ═══════════ -->
-  <aside id="tagbar" class="w-[208px] shrink-0 h-full overflow-y-auto border-l-2 border-charcoal dark:border-nborder bg-cream dark:bg-night flex flex-col">
-    <div class="p-5 pb-3">
-      <h2 class="text-sm font-bold tracking-widest uppercase text-charcoal dark:text-ntext">标签</h2>
-      <div class="geo-divider mt-3" aria-hidden="true">
-        <span class="blk w-6 bg-gold"></span><span class="blk w-3 bg-burnt"></span>
-        <span class="flex-1 h-[2px] bg-charcoal/20 dark:bg-nborder"></span>
+  <aside id="tagbar" class="w-[208px] shrink-0 h-full overflow-y-auto border-l-2 border-charcoal dark:border-nborder bg-cream dark:bg-night flex flex-col" data-page-node-id="90IFxZahtuEbiw9MeUn4GE">
+    <div class="p-5 pb-3" data-page-node-id="LUF8EJ2HSZAkCC1rVF2fBt">
+      <h2 class="text-sm font-bold tracking-widest uppercase text-charcoal dark:text-ntext" data-page-node-id="v23M78agO8JWAVVq6M0DQv">标签</h2>
+      <div class="geo-divider mt-3" aria-hidden="true" data-page-node-id="Rk9C0DxRzRa5l9FOMCdLNN">
+        <span class="blk w-6 bg-gold" data-page-node-id="u1X4S3mXN6pLSOm6nr72ur"></span><span class="blk w-3 bg-burnt" data-page-node-id="yMPm6KPvRKL6GiQz8UOJp2"></span>
+        <span class="flex-1 h-[2px] bg-charcoal/20 dark:bg-nborder" data-page-node-id="GDJ7M20v9KeieG0QwRLwJJ"></span>
       </div>
     </div>
-    <div class="px-4 pb-3">
-      <button class="btn btn-secondary btn-sm w-full" data-action="new-tag">＋ 新建标签</button>
+    <div class="px-4 pb-3" data-page-node-id="rhPU4Y6GVsgXpZNhtApzwt">
+      <button class="btn btn-secondary btn-sm w-full" data-action="new-tag" data-page-node-id="qaMzLWP0tmAk97nEbYxGDR">＋ 新建标签</button>
     </div>
-    <div id="tagList" class="px-4 pb-6 flex flex-col gap-1"></div>
+    <div id="tagList" class="px-4 pb-6 flex flex-col gap-1" data-page-node-id="BsifiHeDje16T69kS86aGP"></div>
   </aside>
 </div>
 
 <!-- 移动端抽屉遮罩 -->
-<div id="scrim" class="fixed inset-0 z-30 bg-charcoal/40 hidden opacity-0" data-action="close-drawer"></div>
+<div id="scrim" class="fixed inset-0 z-30 bg-charcoal/40 hidden opacity-0" data-action="close-drawer" data-page-node-id="PojGFf8NmcCEhK1xz61Xwy"></div>
 
 <!-- 右键/长按菜单 -->
-<div id="ctxMenu" class="fixed z-50 hidden min-w-[160px] rounded-lg border-2 border-charcoal dark:border-nborder bg-cream dark:bg-ncard shadow-mcm p-1 fade-in"></div>
+<div id="ctxMenu" class="fixed z-50 hidden min-w-[160px] rounded-lg border-2 border-charcoal dark:border-nborder bg-cream dark:bg-ncard shadow-mcm p-1 fade-in" data-page-node-id="BM1Ioqq75cKRD9I9qVHWrw"></div>
 
 <!-- 弹窗容器（对话框 / 设置面板） -->
-<div id="modalWrap" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-charcoal/40"></div>
+<div id="modalWrap" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-charcoal/40" data-page-node-id="afDqMQkspN38y6LDuqAw4U"></div>
 
 <!-- Toast -->
-<div id="toast" class="fixed z-[60] left-1/2 -translate-x-1/2 bottom-8 hidden rounded-lg border-2 border-charcoal dark:border-nborder bg-burnt text-cream px-5 py-3 text-sm font-semibold shadow-mcm fade-in"></div>
+<div id="toast" class="fixed z-[60] left-1/2 -translate-x-1/2 bottom-8 hidden rounded-lg border-2 border-charcoal dark:border-nborder bg-burnt text-cream px-5 py-3 text-sm font-semibold shadow-mcm fade-in" data-page-node-id="ezqorGKwD6xqR0O41Zpilf"></div>
 
 <!-- 隐藏的导入文件框 -->
-<input type="file" id="importFile" accept="application/json,.json" class="hidden">
+<input type="file" id="importFile" accept="application/json,.json" class="hidden" data-page-node-id="nEY8t9pT1LLjVwAuLqipdo">
 
 <script>
 /* ═══════════════════════════ 数据层 ═══════════════════════════ */
@@ -266,6 +321,33 @@ const SORT_LABELS = {
 
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+/* 富文本白名单净化：仅保留 b/strong/i/em/u 等基础标签，剥离全部属性与危险节点 */
+const FMT_ALLOWED = new Set(['B', 'STRONG', 'I', 'EM', 'U', 'BR', 'DIV', 'P', 'SPAN']);
+const FMT_DROP = new Set(['SCRIPT', 'STYLE', 'IFRAME', 'OBJECT', 'EMBED', 'LINK', 'META', 'IMG', 'A']);
+function sanitizeHTML(html) {
+  try {
+    const doc = new DOMParser().parseFromString('<div id="r">' + (html || '') + '</div>', 'text/html');
+    const root = doc.getElementById('r');
+    const walk = node => {
+      [...node.childNodes].forEach(child => {
+        if (child.nodeType !== 1) return;
+        if (FMT_DROP.has(child.tagName)) { child.remove(); return; }
+        while (child.attributes.length) child.removeAttribute(child.attributes[0].name);
+        if (!FMT_ALLOWED.has(child.tagName)) {
+          walk(child);
+          const parent = child.parentNode;
+          while (child.firstChild) parent.insertBefore(child.firstChild, child);
+          child.remove();
+          return;
+        }
+        walk(child);
+      });
+    };
+    walk(root);
+    return root.innerHTML;
+  } catch (e) { return esc(String(html || '').replace(/<[^>]*>/g, '')); }
+}
 
 function defaultState() {
   return {
@@ -504,6 +586,61 @@ function listHTML() {
   <div id="gridArea" class="px-4 md:px-8 py-6">${grid}</div>`;
 }
 
+/* ═══════════════════════════ 富文本工具栏（B / I / U） ═══════════════════════════ */
+const FMT_CMDS = ['bold', 'italic', 'underline'];
+
+/* 依据当前光标/选区实时刷新三个按钮的激活态 */
+function updateFmtState() {
+  const ed = document.getElementById('edBody');
+  if (!ed) return;
+  const focused = document.activeElement === ed;
+  FMT_CMDS.forEach(cmd => {
+    const btn = document.querySelector('.fmt-btn[data-fmt="' + cmd + '"]');
+    if (!btn) return;
+    let on = false;
+    if (focused) { try { on = document.queryCommandState(cmd); } catch (e) { on = false; } }
+    btn.classList.toggle('active', !!on);
+    btn.setAttribute('aria-pressed', !!on);
+  });
+}
+
+/* 把可编辑区内容同步回笔记对象（HTML 存 content，纯文本存 body 供搜索/预览） */
+function syncFromEditor() {
+  const n = noteById(ui.noteId);
+  const ed = document.getElementById('edBody');
+  if (!n || !ed) return;
+  n.content = sanitizeHTML(ed.innerHTML);
+  n.body = ed.innerText;
+  debouncedPersist();
+}
+
+/* 执行加粗/斜体/下划线切换 */
+function execFmt(cmd) {
+  const ed = document.getElementById('edBody');
+  if (!ed) return;
+  ed.focus();
+  try { document.execCommand(cmd, false, null); } catch (e) { /* 忽略不支持的浏览器 */ }
+  syncFromEditor();
+  updateFmtState();
+}
+
+/* 光标移动时同步按钮状态 */
+document.addEventListener('selectionchange', () => {
+  if (document.activeElement && document.activeElement.id === 'edBody') updateFmtState();
+});
+/* 按下工具栏按钮时保留选区，避免焦点丢失导致选区清空 */
+document.addEventListener('mousedown', e => {
+  if (e.target.closest && e.target.closest('.fmt-btn[data-fmt]')) e.preventDefault();
+});
+/* 快捷键 Ctrl/Cmd + B / I / U */
+document.addEventListener('keydown', e => {
+  if (!(e.ctrlKey || e.metaKey)) return;
+  if (document.activeElement && document.activeElement.id !== 'edBody') return;
+  const k = e.key.toLowerCase();
+  const map = { b: 'bold', i: 'italic', u: 'underline' };
+  if (map[k]) { e.preventDefault(); execFmt(map[k]); }
+});
+
 /* ═══════════════════════════ 渲染：详情页 ═══════════════════════════ */
 function detailReadHTML(n) {
   const tags = (n.tags || []).map(tid => tagById(tid)).filter(Boolean);
@@ -531,9 +668,31 @@ function detailReadHTML(n) {
       <div class="geo-divider my-6" aria-hidden="true">
         <span class="blk w-2 bg-gold"></span><span class="flex-1 h-[2px] bg-charcoal/20 dark:bg-nborder"></span>
       </div>
-      <div class="whitespace-pre-wrap text-base leading-[1.6] md:text-[17px]">${esc(n.body || '（暂无正文）')}</div>
+      <div class="whitespace-pre-wrap text-base leading-[1.6] md:text-[17px]">${n.content || esc(n.body || '（暂无正文）')}</div>
+      ${n.annotation && n.annotation.trim() ? `
+      <div class="mt-8 pt-6 border-t-2 border-dashed border-charcoal/15 dark:border-nborder/40">
+        <div class="flex items-center gap-2">
+          <span class="w-1.5 h-4 rounded-sm bg-gold shrink-0" aria-hidden="true"></span>
+          <h3 class="text-xs font-bold tracking-wide uppercase text-charcoal dark:text-ntext">注解</h3>
+        </div>
+        <div class="mt-3 max-w-[680px] whitespace-pre-wrap text-base leading-[1.6] text-charcoal/80 dark:text-ntext/80">${esc(n.annotation)}</div>
+      </div>` : ''}
     </article>
   </div>`;
+}
+
+/* 转移分类下拉选项：一级书籍根目录 + 该书子分类，两级固定 */
+function moveOptionsHTML(n) {
+  if (!state.books.length) return '<option value="">（还没有书籍）</option>';
+  return state.books.map(b => {
+    const rootOn = n.bookId === b.id && !n.catId;
+    let html = `<option value="${esc(b.id)}" ${rootOn ? 'selected' : ''}>《${esc(b.name)}》（无次级分类）</option>`;
+    b.children.forEach(c => {
+      const on = n.bookId === b.id && n.catId === c.id;
+      html += `<option value="${esc(b.id)}|${esc(c.id)}" ${on ? 'selected' : ''}>《${esc(b.name)}》 → ${esc(c.name)}</option>`;
+    });
+    return html;
+  }).join('');
 }
 
 function detailEditHTML(n) {
@@ -559,8 +718,19 @@ function detailEditHTML(n) {
         <input id="edTitle" class="field text-lg font-bold" type="text" value="${esc(n.title)}" placeholder="笔记标题…" maxlength="120" autocomplete="off">
       </div>
       <div>
-        <label for="edBody" class="block text-xs font-bold tracking-widest uppercase mb-2">正文</label>
-        <textarea id="edBody" class="field min-h-[260px] leading-relaxed resize-y" placeholder="写下你的阅读笔记…（输入会自动保存草稿）">${esc(n.body)}</textarea>
+        <label class="block text-xs font-bold tracking-widest uppercase mb-2">正文</label>
+        <div class="fmt-bar mb-2" role="toolbar" aria-label="正文格式工具栏">
+          <button type="button" class="fmt-btn !font-bold" data-action="fmt-bold" data-fmt="bold" aria-pressed="false" title="加粗（B）">B</button>
+          <button type="button" class="fmt-btn italic" data-action="fmt-italic" data-fmt="italic" aria-pressed="false" title="斜体（I）">I</button>
+          <button type="button" class="fmt-btn underline" data-action="fmt-underline" data-fmt="underline" aria-pressed="false" title="下划线（U）">U</button>
+        </div>
+        <div id="edBody" class="field min-h-[260px] leading-relaxed" contenteditable="true" role="textbox" aria-multiline="true"
+             aria-label="笔记正文" data-placeholder="写下你的阅读笔记…（输入会自动保存草稿）">${n.content || esc(n.body || '')}</div>
+      </div>
+      <div class="mt-1">
+        <label for="edAnnotation" class="block text-xs font-bold tracking-widest uppercase mb-2 text-charcoal dark:text-ntext">注解</label>
+        <textarea id="edAnnotation" class="field field-annotation min-h-[140px] leading-relaxed resize-y"
+                  placeholder="补充备注、页码、出处、附加批注…（输入会自动保存草稿）">${esc(n.annotation || '')}</textarea>
       </div>
       <div>
         <div class="flex items-center justify-between mb-2">
@@ -568,6 +738,13 @@ function detailEditHTML(n) {
           <button type="button" class="btn btn-secondary btn-sm !shadow-none" data-action="editor-new-tag">＋ 新标签</button>
         </div>
         <div class="flex flex-wrap gap-2">${tagBoxes || '<span class="text-xs text-charcoal/50 dark:text-ntext/50">还没有可选标签，点击「新标签」创建。</span>'}</div>
+      </div>
+      <div class="mt-1">
+        <label for="edMove" class="block text-xs font-bold tracking-wide uppercase mb-2 text-charcoal dark:text-ntext">转移分类</label>
+        <select id="edMove" class="field field-select" aria-label="移动笔记到其他分类">
+          ${moveOptionsHTML(n)}
+        </select>
+        <p class="mt-2 text-xs text-charcoal/50 dark:text-ntext/50 leading-relaxed">选择目标位置后，点击「保存并返回」生效。</p>
       </div>
     </form>
   </div>`;
@@ -583,10 +760,27 @@ function renderMain() {
       if (ui.editing) {
         const ti = document.getElementById('edTitle');
         const bo = document.getElementById('edBody');
+        const ta = document.getElementById('edAnnotation');
         if (ti) { ti.focus(); ti.setSelectionRange(ti.value.length, ti.value.length); }
-        const onInput = () => { n.title = ti ? ti.value : n.title; n.body = bo ? bo.value : n.body; debouncedPersist(); };
+        const onInput = () => {
+          n.title = ti ? ti.value : n.title;
+          if (ta) n.annotation = ta.value;
+          if (bo) {
+            n.content = sanitizeHTML(bo.innerHTML);
+            n.body = bo.innerText;
+            /* 清空后残留的空行标签也要清掉，否则占位提示不显示 */
+            if (!bo.innerText.trim() && /^(<br\s*\/?>|<div>\s*<br\s*\/?>\s*<\/div>)+$/i.test(bo.innerHTML.trim())) bo.innerHTML = '';
+          }
+          updateFmtState();
+          debouncedPersist();
+        };
         if (ti) ti.addEventListener('input', onInput);
-        if (bo) bo.addEventListener('input', onInput);
+        if (ta) ta.addEventListener('input', onInput);
+        if (bo) {
+          bo.addEventListener('input', onInput);
+          ['keyup', 'mouseup', 'focus', 'blur'].forEach(ev => bo.addEventListener(ev, updateFmtState));
+          updateFmtState();
+        }
       }
       return;
     }
@@ -908,7 +1102,7 @@ function newNote() {
     bookId = state.books[0].id; catId = null;
   }
   const now = Date.now();
-  const n = { id: uid(), bookId, catId, title: '', body: '', tags: [], created: now, updated: now };
+  const n = { id: uid(), bookId, catId, title: '', body: '', content: '', annotation: '', tags: [], created: now, updated: now };
   state.notes.push(n);
   ui.noteId = n.id; ui.view = 'detail'; ui.editing = true; ui.isNew = true; ui.snapshot = null;
   ui.search = ''; ui.activeTags = [];
@@ -940,11 +1134,27 @@ function saveNote(id) {
   if (!n) return;
   const ti = document.getElementById('edTitle');
   const bo = document.getElementById('edBody');
+  const ta = document.getElementById('edAnnotation');
+  const mv = document.getElementById('edMove');
+  /* 转移分类：仅在点击保存时生效，不做即时迁移 */
+  const fromBook = n.bookId, fromCat = n.catId || null;
+  if (mv) {
+    const parts = (mv.value || '').split('|');
+    const target = bookById(parts[0]);
+    if (target) {
+      n.bookId = target.id;
+      const sub = parts[1] ? subById(target, parts[1]) : null;
+      n.catId = sub ? sub.id : null;
+    }
+  }
   if (ti) n.title = ti.value.trim();
-  if (bo) n.body = bo.value;
+  if (ta) n.annotation = ta.value;
+  if (bo) { n.content = sanitizeHTML(bo.innerHTML); n.body = bo.innerText.replace(/\s+$/, ''); }
   if (!n.title) n.title = '无标题笔记';
   n.updated = Date.now();
   ui.editing = false; ui.isNew = false; ui.snapshot = null;
+  /* 位置发生变化时，列表视图跟随到新的分类 */
+  if (n.bookId !== fromBook || (n.catId || null) !== fromCat) { ui.bookId = n.bookId; ui.catId = n.catId || null; }
   persist();
   ui.view = 'list'; ui.noteId = null;
   render();
@@ -1232,6 +1442,9 @@ const ACTIONS = {
   'delete-note': t => deleteNote(t.dataset.noteId),
   'save-note': t => saveNote(t.dataset.noteId),
   'cancel-edit': t => cancelEdit(t.dataset.noteId),
+  'fmt-bold': () => execFmt('bold'),
+  'fmt-italic': () => execFmt('italic'),
+  'fmt-underline': () => execFmt('underline'),
   'editor-toggle-tag': t => {
     const n = noteById(ui.noteId);
     if (!n) return;
@@ -1294,4 +1507,3 @@ render();
 </script>
 </body>
 </html>
-
